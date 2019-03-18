@@ -1,8 +1,8 @@
 from random import randint
 import numpy as np
 
-persons = ["A","B","C","D","E","F","G","H","I","J"]
-rooms = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
+persons = ['Lucas','Tura','Claire','Pablo','Victor','Joni','Clara','Ruth','Guillem','Julia']
+rooms = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV"]
 
 def gen_matrix(x,y):
 	return np.mat([[randint(1,10) for d in range(x)] for v in range(y)])
@@ -57,8 +57,9 @@ def optimize_cols(mat):
 	return deviations - std_cols(mat)
 
 def optimize_rows(mat):
-	deviations = dev_mat(mat, avg_rows(mat))
-	return deviations - std_rows(mat)
+	tmat = mat.transpose()
+	deviations = dev_mat(tmat, avg_cols(tmat))
+	return (deviations - std_cols(tmat)).transpose()
 
 def gen_candidate(mat):
 	col_candidates = optimize_cols(mat)
@@ -75,7 +76,7 @@ def assign(mat, rows, cols):
 		rows = list(rows)
 		cols = list(cols)
 		while mat.shape[0] > 0:
-			assignation = assign_by_eval(mat)
+			assignation = gen_candidate(mat)
 			row = assignation[0]
 			col = assignation[1]
 			result[rows[row]] = cols[col]
