@@ -1,11 +1,11 @@
 from random import randint
 import numpy as np
 
-persons = ['Lucas','Tura','Claire','Pablo','Victor','Joni','Clara','Ruth','Guillem','Julia']
-rooms = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV"]
+persons = ['Lucas','Tura','Claire','Pablo','Victor','Joni','Clara','Ruth','Guillem','Julia','Carlo','Joan','Estel·la','Eulalia','Ainapi','Julia']
+rooms = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII"]
 
-def gen_matrix(x,y):
-	return np.mat([[randint(1,10) for d in range(x)] for v in range(y)])
+def gen_matrix(rows,cols):
+	return np.mat([[randint(1,10) for d in range(cols)] for v in range(rows)])
 
 def ordinal_matrix(mat):
 	order = [{col: mat[row, col] for col in range(mat.shape[1])} for row in range(mat.shape[0])]
@@ -64,6 +64,8 @@ def optimize_rows(mat):
 def gen_candidate(mat):
 	col_candidates = optimize_cols(mat)
 	row_candidates = optimize_rows(mat)
+	# es pot plantejar una mitja ponderada per donar-li més pes
+	# a la dimensió persona o a la dimensió habitació. Com es vegi
 	candidates = (col_candidates + row_candidates)/2
 	first = candidates.max()
 	for row in range(mat.shape[0]):
